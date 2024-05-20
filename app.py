@@ -24,6 +24,20 @@ tasks: List[Task] = []  # type: ignore
 task_id = 0
 
 
+@app.route("/tasks", methods=["GET"])
+def get_tasks():
+    task_count = len(tasks)
+    task_list = [task.to_dict() for task in tasks]
+    output = {
+        "tasks": task_list,
+        "total_tasks": task_count
+    }
+    try:
+        return jsonify(output), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+
 @app.route("/tasks", methods=["POST"])
 def create_task():
     global task_id
