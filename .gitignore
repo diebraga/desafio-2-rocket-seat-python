@@ -1,0 +1,40 @@
+# Ignore les fichiers compilés Python
+__pycache__/
+*.py[cod]
+
+# Ignore l'environnement virtuel
+venv/
+env/
+.myenv/
+myenv/
+
+# Ignore les fichiers de configuration spécifiques à l'IDE
+.vscode/
+.idea/
+
+# Ignore les fichiers de log
+*.log
+
+# Ignore les fichiers de base de données
+*.sqlite3
+
+# Ignore les fichiers de configuration locaux
+config.yaml
+config.json
+
+# Ignore les fichiers créés par l'éditeur
+*.swp
+*.swo
+*~
+
+# Ignore les fichiers de test coverage
+.coverage
+htmlcov/
+.coverage.*
+
+# Ignore les répertoires de cache
+.cache/
+node_modules/
+
+# Ignore les fichiers d'environnement
+.env
