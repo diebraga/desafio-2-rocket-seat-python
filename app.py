@@ -43,8 +43,25 @@ def get_task(id):
     try:
         for t in tasks:
             if t.id == id:
-                return jsonify(t.to_dict())
-            return jsonify({"error": "not found"}), 401
+                return jsonify(t.to_dict()), 200
+        return jsonify({"error": "not found"}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+
+@app.route("/tasks/<int:id>", methods=["PUT"])
+def put_task(id):
+    try:
+        received_task = request.get_json()
+        for t in tasks:
+            if t.id == id:
+                t.title = received_task.get("title", t.title)
+                t.description = received_task.get("description", t.description)
+                t.price = received_task.get("price", t.price)
+                t.completed = received_task.get("completed", t.completed)
+
+                return jsonify(t.to_dict()), 200
+        return jsonify({"error": "not found"}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
