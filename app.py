@@ -38,6 +38,17 @@ def get_tasks():
         return jsonify({"error": str(e)}), 400
 
 
+@app.route("/tasks/<int:id>", methods=["GET"])
+def get_task(id):
+    try:
+        for t in tasks:
+            if t.id == id:
+                return jsonify(t.to_dict())
+            return jsonify({"error": "not found"}), 401
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+
 @app.route("/tasks", methods=["POST"])
 def create_task():
     global task_id
