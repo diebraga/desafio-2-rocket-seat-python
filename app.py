@@ -41,10 +41,24 @@ def get_tasks():
 @app.route("/tasks/<int:id>", methods=["GET"])
 def get_task(id):
     try:
-        for t in tasks:
-            if t.id == id:
-                return jsonify(t.to_dict()), 200
-        return jsonify({"error": "not found"}), 404
+        task = next(filter(lambda t: t.id == id, tasks), None)
+        if task:
+            return jsonify(task.to_dict()), 200
+        else:
+            return jsonify({"error": "not found"}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+
+@app.route("/tasks/<int:id>", methods=["DELETE"])
+def del_task(id):
+    try:
+        task = next(filter(lambda t: t.id == id, tasks), None)
+        if task:
+            tasks.remove(task)
+            return jsonify({"message": "item deleted"}), 200
+        else:
+            return jsonify({"error": "not found"}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
